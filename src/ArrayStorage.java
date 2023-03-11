@@ -12,13 +12,13 @@ public class ArrayStorage {
         size = 0;
     }
 
-    void save(Resume r)  {
-        if(r.uuid != null && !r.uuid.isBlank()){
+    void save(Resume r) {
+        if (r.uuid != null && !r.uuid.isBlank() && get(r.uuid) == null) {
             storage[size++] = new Resume(r);
         }
     }
 
-    Resume get(String uuid)  {
+    Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].toString().equals(uuid)) {
                 return new Resume(storage[i]);
@@ -30,8 +30,9 @@ public class ArrayStorage {
     void delete(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].toString().equals(uuid)) {
-                Resume[] newStorage = Arrays.copyOfRange(storage, 0, --size);
-                if (size > 0) System.arraycopy(storage, 0, newStorage, i, size - i - 1);
+                System.arraycopy(storage, i + 1, storage, i, size - i - 1);
+                storage[--size] = null;
+                return;
             }
         }
     }
