@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
@@ -15,17 +18,13 @@ public abstract class AbstractArrayStorage implements Storage {
 
   public final void save(Resume r) {
     if (size == STORAGE_LIMIT) {
-      System.out.println("ERROR: The maximum array size has been reached");
+      throw new StorageException("Storage overflow", r.getUuid());
     }
-
     int index = getIndex(r.getUuid());
-    if (index < 0) {
-      addElement(index, r);
-    } else {
-      System.out.println(
-          "ERROR: Attempt to add a resume with existing or empty uuid = " + r.getUuid());
+    if (index >= 0) {
+      throw new ExistStorageException(r.getUuid());
     }
-    return;
+    addElement(index, r);
   }
 
   public final void update(Resume r) {
@@ -33,7 +32,7 @@ public abstract class AbstractArrayStorage implements Storage {
     if (i > 0) {
       storage[i] = r;
     } else {
-      System.out.println("ERROR: Unable to find a storage element with uuid = " + r.getUuid());
+      throw new NotExistStorageException(r.getUuid());
     }
   }
 
@@ -42,8 +41,7 @@ public abstract class AbstractArrayStorage implements Storage {
     if (i >= 0) {
       return new Resume(storage[i]);
     }
-    System.out.println("ERROR: Unable to find a storage element with uuid = " + uuid);
-    return null;
+    throw new NotExistStorageException(uuid);
   }
 
   public final void delete(String uuid) {
@@ -52,7 +50,7 @@ public abstract class AbstractArrayStorage implements Storage {
       deleteElement(i);
       return;
     }
-    System.out.println("ERROR: Unable to find a storage element with uuid = " + uuid);
+    throw new NotExistStorageException(uuid);
   }
 
   /**
