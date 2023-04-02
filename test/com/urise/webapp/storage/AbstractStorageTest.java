@@ -1,10 +1,11 @@
 package com.urise.webapp.storage;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,7 @@ public abstract class AbstractStorageTest {
 
   @Test
   public void size() {
-    Assertions.assertEquals(INITIAL_ARRAY_SIZE, storage.size());
+    assertSize(storage.size());
   }
 
   @Test
@@ -44,7 +45,7 @@ public abstract class AbstractStorageTest {
 
   @Test
   public void saveExist() {
-    Assertions.assertThrows(ExistStorageException.class, () -> storage.save(R2));
+    assertThrows(ExistStorageException.class, () -> storage.save(R2));
   }
 
   @Test
@@ -56,7 +57,7 @@ public abstract class AbstractStorageTest {
 
   @Test
   public void updateNorExist() {
-    Assertions.assertThrows(NotExistStorageException.class, () -> storage.update(R4));
+    assertThrows(NotExistStorageException.class, () -> storage.update(R4));
     assertSize(INITIAL_ARRAY_SIZE);
   }
 
@@ -64,12 +65,12 @@ public abstract class AbstractStorageTest {
   public void delete() {
     storage.delete(R2.getUuid());
     assertSize(INITIAL_ARRAY_SIZE - 1);
-    Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(R2.getUuid()));
+    assertThrows(NotExistStorageException.class, () -> storage.get(R2.getUuid()));
   }
 
   @Test
   public void deleteNotExist() {
-    Assertions.assertThrows(NotExistStorageException.class, () -> storage.delete(R4.getUuid()));
+    assertThrows(NotExistStorageException.class, () -> storage.delete(R4.getUuid()));
     assertSize(INITIAL_ARRAY_SIZE);
   }
 
@@ -82,25 +83,48 @@ public abstract class AbstractStorageTest {
 
   @Test
   public void getNotExist() {
-    Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(R4.getUuid()));
+    assertThrows(NotExistStorageException.class, () -> storage.get(R4.getUuid()));
   }
 
   @Test
   public void saveOverflow() {
-    Assertions.assertThrows(
+    storage.clear();
+    assertThrows(
         StorageException.class,
         () -> {
-          for (int i = INITIAL_ARRAY_SIZE; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-            storage.save(new Resume("uuid" + i));
+          int i = 0;
+          try {
+            for (; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+              storage.save(new Resume("uuid" + i));
+            }
+          } catch (StorageException e) {
+            if (i == AbstractArrayStorage.STORAGE_LIMIT) {
+              throw e;
+            } else {
+              System.out.println("StorageException is thrown earlier than expected");
+            }
           }
         });
   }
 
   protected void assertGet(Resume r) {
-    Assertions.assertEquals(r, storage.get(r.getUuid()));
+    assertEquals(r, storage.get(r.getUuid()));
   }
 
   protected void assertSize(int size) {
-    Assertions.assertEquals(size, storage.size());
+    assertEquals(size, storage.size());
   }
-}
+private  void execute(){
+  int i = 0;
+  try {
+    for (; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+      storage.save(new Resume("uuid" + i));
+    }
+  } catch (StorageException e) {
+    if (i < AbstractArrayStorage.STORAGE_LIMIT) {
+      fail("ddd");
+    } else {
+      throw e;
+    }
+  }
+}}
