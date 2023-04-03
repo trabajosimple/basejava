@@ -6,21 +6,19 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
   @Override
-  protected int getIndex(String uuid) {
-    return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
+  protected Integer getindex(String uuid) {
+    return Arrays.binarySearch(storage, 0, size(), new Resume(uuid));
   }
 
   @Override
-  protected void addElement(int index, Resume r) {
-    int i = -index - 1;
-    System.arraycopy(storage, i, storage, i + 1, size - i);
-    storage[i] = r;
-    size++;
+  protected void addArrayElement(int i, Resume resume) {
+    int index = -i - 1;
+    System.arraycopy(storage, index, storage, index + 1, size() - index);
+    storage[index] = resume;
   }
 
   @Override
-  protected void deleteElement(int i) {
-    System.arraycopy(storage, i + 1, storage, i, size - i);
-    size--;
+  protected void deleteArrayElement(int i) {
+    System.arraycopy(storage, i + 1, storage, i, size() - i);
   }
 }

@@ -6,6 +6,7 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -80,7 +81,12 @@ public abstract class AbstractStorageTest {
     assertGet(R2);
     assertGet(R3);
   }
-
+  
+  @Test
+  public void getAll() {
+    assertNotNull(Arrays.toString(storage.getAll()));
+  }
+  
   @Test
   public void getNotExist() {
     assertThrows(NotExistStorageException.class, () -> storage.get(R4.getUuid()));
