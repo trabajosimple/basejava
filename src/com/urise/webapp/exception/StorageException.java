@@ -8,7 +8,7 @@ public class StorageException extends RuntimeException {
     this.uuid = uuid;
   }
 
-  public String getindex() {
+  public String getUuid() {
     return uuid;
   }
 }

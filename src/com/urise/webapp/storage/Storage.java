@@ -18,7 +18,7 @@ public interface Storage {
     return null;
   }
 
-  default int size(){
+  default int size() {
     return 0;
   }
 }
