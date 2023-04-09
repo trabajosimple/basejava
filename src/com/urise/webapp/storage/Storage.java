@@ -1,6 +1,7 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
+import java.util.List;
 
 public interface Storage {
 
@@ -14,7 +15,7 @@ public interface Storage {
 
   default void clear() {}
 
-  default Resume[] getAll() {
+  default List<Resume> getAllSorted() {
     return null;
   }
 

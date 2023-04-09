@@ -3,6 +3,8 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
   @Override
@@ -18,6 +20,13 @@ public abstract class AbstractStorage implements Storage {
   @Override
   public final Resume get(String uuid) {
     return doGet(getExistingSearchKey(uuid));
+  }
+
+  @Override
+  public final List<Resume> getAllSorted() {
+    List<Resume> list = doCopyAll();
+    Collections.sort(list);
+    return list;
   }
 
   @Override
@@ -48,6 +57,8 @@ public abstract class AbstractStorage implements Storage {
   protected abstract void doUpdate(Object searchKey, Resume resume);
 
   protected abstract Resume doGet(Object searchKey);
+
+  protected abstract List<Resume> doCopyAll();
 
   protected abstract void doDelete(Object searchKey);
 
