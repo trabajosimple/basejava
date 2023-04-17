@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-124.0" y="-22.0">com.urise.webapp.model.Section</node>
+    <node x="158.0" y="-107.0">com.urise.webapp.model.SectionType</node>
+    <node x="321.0" y="-118.0">com.urise.webapp.model.Link</node>
+    <node x="-8.0" y="-94.5">com.urise.webapp.model.Organization</node>
+    <node x="-145.0" y="37.0">com.urise.webapp.model.OrganizationSection</node>
+    <node x="110.0" y="37.0">com.urise.webapp.model.ListSection</node>
+    <node x="-145.0" y="-107.0">com.urise.webapp.model.Resume</node>
+    <node x="286.0" y="37.0">com.urise.webapp.model.TextSection</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.urise.webapp.model.OrganizationSection" target="com.urise.webapp.model.Section" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="-32.5" y="27.0" />
+      <point x="-74.5" y="27.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.urise.webapp.model.TextSection" target="com.urise.webapp.model.Section" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="350.5" y="27.0" />
+      <point x="-74.5" y="27.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.urise.webapp.model.ListSection" target="com.urise.webapp.model.Section" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="183.0" y="27.0" />
+      <point x="-74.5" y="27.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.5" showDependencies="false" x="154.5" y="-3.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
