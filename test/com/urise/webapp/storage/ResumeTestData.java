@@ -4,36 +4,35 @@ import static com.urise.webapp.model.ContactType.*;
 import static com.urise.webapp.model.SectionType.*;
 
 import com.urise.webapp.model.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ResumeTestData {
-  protected static final Resume R1 = new Resume("uuid1", "Григорий Кислин");
+  protected static final Resume R1 = new Resume("uuid0", "Григорий Кислин");
 
   static {
     R1.setContact(PHONE, "+7(921) 855-0482");
     R1.setContact(SKYPE, "skype:grigory.kislin");
     R1.setContact(MAIL, "mailto:gkislin@yandex.ru");
-    R1.setContact(LINKEDIN, "https://www.linkedin.com/in/gkislin");
+    R1.setContact(LINKEDIN, "https ://www.linkedin.com/in/gkislin");
     R1.setContact(GITHUB, "https://github.com/gkislin");
     R1.setContact(STATCKOVERFLOW, "https://stackoverflow.com/users/548473");
     R1.setContact(HOME_PAGE, "http://gkislin.ru/");
 
     R1.setSection(
         OBJECTIVE,
-        new TextSection(
+        new TextAbstractSection(
             "Ведущий стажировок и корпоративного обучения по "
                 + "Java Web и Enterprise технологиям"));
     R1.setSection(
         PERSONAL,
-        new TextSection(
+        new TextAbstractSection(
             "Аналитический склад ума, сильная логика, креативность, "
                 + "инициативность. Пурист кода и архитектуры."));
 
     R1.setSection(
         ACHIEVEMENT,
-        new ListSection(
+        new ListAbstractSection(
             new ArrayList(
                 Arrays.asList(
                     "Организация команды и успешная реализация Java проектов "
@@ -67,7 +66,7 @@ public class ResumeTestData {
                         + "и Никарагуа."))));
     R1.setSection(
         QUALIFICATIONS,
-        new ListSection(
+        new ListAbstractSection(
             new ArrayList(
                 Arrays.asList(
                     "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty,WebLogic, WSO2",
@@ -94,21 +93,23 @@ public class ResumeTestData {
 
     R1.setSection(
         EXPERIENCE,
-        new OrganizationSection(
+        new OrganizationAbstractSection(
             new ArrayList(
                 Arrays.asList(
                     new Organization(
                         "Java Online Projects",
                         "https://javaops.ru/",
-                        LocalDate.of(2013, 10, 1),
-                        LocalDate.now(),
+                        2013,
+                        10,
                         "Автор проекта",
                         "Создание, организация и проведение Java онлайн проектов и стажировок."),
                     new Organization(
                         "Wrike",
                         "https://www.wrike.com/vw/",
-                        LocalDate.of(2014, 10, 1),
-                        LocalDate.of(2016, 1, 1),
+                        2014,
+                        10,
+                        2016,
+                        1,
                         "Старший разработчик (backend)",
                         "Проектирование и разработка онлайн платформы управления проектами Wrike "
                             + "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). "
@@ -116,8 +117,10 @@ public class ResumeTestData {
                     new Organization(
                         "RIT Center",
                         "",
-                        LocalDate.of(2012, 4, 1),
-                        LocalDate.of(2014, 10, 1),
+                        2012,
+                        4,
+                        2014,
+                        10,
                         "Java архитектор",
                         "Организация процесса разработки системы ERP для разных окружений: "
                             + "релизная политика, версионирование, ведение CI (Jenkins), миграция "
@@ -132,8 +135,10 @@ public class ResumeTestData {
                     new Organization(
                         "Luxoft (Deutsche Bank)",
                         "http://www.luxoft.ru/",
-                        LocalDate.of(2010, 12, 1),
-                        LocalDate.of(2012, 4, 1),
+                        2010,
+                        12,
+                        2012,
+                        4,
                         "Ведущий программист",
                         "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring,"
                             + " Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и "
@@ -143,8 +148,10 @@ public class ResumeTestData {
                     new Organization(
                         "Yota",
                         "https://www.yota.ru/",
-                        LocalDate.of(2008, 6, 1),
-                        LocalDate.of(2010, 12, 1),
+                        2008,
+                        6,
+                        2010,
+                        12,
                         "Ведущий специалист",
                         "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные "
                             + "Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, "
@@ -154,8 +161,10 @@ public class ResumeTestData {
                     new Organization(
                         "Enkata",
                         "http://enkata.com/",
-                        LocalDate.of(2007, 3, 1),
-                        LocalDate.of(2008, 6, 1),
+                        2007,
+                        3,
+                        2008,
+                        6,
                         "Разработчик ПО",
                         "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, "
                             + "Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP,"
@@ -163,8 +172,10 @@ public class ResumeTestData {
                     new Organization(
                         "Siemens AG",
                         "https://www.siemens.com/ru/ru/home.html",
-                        LocalDate.of(2005, 1, 1),
-                        LocalDate.of(2007, 2, 1),
+                        2005,
+                        1,
+                        2007,
+                        2,
                         "Разработчик ПО",
                         "Разработка информационной модели, проектирование интерфейсов, "
                             + "реализация и отладка ПО на мобильной IN платформе Siemens @vantage "
@@ -172,55 +183,59 @@ public class ResumeTestData {
                     new Organization(
                         "Alcatel",
                         "http://www.alcatel.ru/",
-                        LocalDate.of(1997, 9, 1),
-                        LocalDate.of(2005, 1, 1),
+                        1997,
+                        9,
+                        2005,
+                        1,
                         "Инженер по аппаратному и программному тестированию",
                         "Тестирование, отладка, внедрение ПО цифровой телефонной станции "
                             + "Alcatel 1000 S12 (CHILL, ASM).")))));
 
     R1.setSection(
         EDUCATION,
-        new OrganizationSection(
+        new OrganizationAbstractSection(
             new ArrayList(
                 Arrays.asList(
                     new Organization(
                         "Siemens AG",
                         "http://www.siemens.ru/",
-                        LocalDate.of(2005, 1, 1),
-                        LocalDate.of(2005, 4, 1),
+                        2005,
+                        1,
+                        2005,
+                        4,
                         "3 месяца обучения мобильным IN сетям (Берлин)",
                         ""),
                     new Organization(
                         "Alcatel",
                         "http://www.alcatel.ru/",
-                        LocalDate.of(1997, 9, 1),
-                        LocalDate.of(1998, 8, 1),
+                        1997,
+                        9,
+                        1998,
+                        8,
                         "6 месяцев обучения цифровым телефонным сетям (Москва)",
                         ""),
                     new Organization(
-                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
+                        "Санкт-Петербургский национальный исследовательский университет " +
+                                "информационных технологий, механики и оптики",
                         "http://www.ifmo.ru/",
-                        LocalDate.of(1993, 9, 1),
-                        LocalDate.of(1996, 7, 1),
-                        "Аспирантура (программист С, С++)",
-                        ""),
-                    new Organization(
-                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                        "http://www.ifmo.ru/",
-                        LocalDate.of(1987, 7, 1),
-                        LocalDate.of(1993, 9, 1),
-                        "Инженер (программист Fortran, C)",
-                        ""),
+                        new Organization.Position(
+                            1993, 9, 1996, 7, "Аспирантура " +
+                                "(программист С, С++)", ""),
+                        new Organization.Position(
+                            1987, 7, 1993, 9, "Инженер " +
+                                "(программист Fortran, C)", "")),
                     new Organization(
                         "Заочная физико-техническая школа при МФТИ",
                         "https://mipt.ru/",
-                        LocalDate.of(1984, 9, 1),
-                        LocalDate.of(1987, 6, 1),
+                        1984,
+                        9,
+                        1987,
+                        6,
                         "Закончил с отличием\n",
                         "")))));
   }
-  
-  public static void main(String[] args){
+
+  public static void main(String[] args) {
     System.out.println(R1);
   }
 }

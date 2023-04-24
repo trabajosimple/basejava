@@ -2,10 +2,10 @@ package com.urise.webapp.model;
 
 import java.util.Objects;
 
-public class TextSection extends Section {
+public class TextAbstractSection extends AbstractSection {
   private final String content;
 
-  public TextSection(String content) {
+  public TextAbstractSection(String content) {
     Objects.requireNonNull(content, "content must not be null");
     this.content = content;
   }
@@ -23,7 +23,7 @@ public class TextSection extends Section {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    TextSection that = (TextSection) o;
+    TextAbstractSection that = (TextAbstractSection) o;
     return content.equals(that.content);
   }
 
