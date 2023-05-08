@@ -26,7 +26,7 @@ public class MapUUIDStorage extends AbstractStorage<String> {
 
   @Override
   protected Resume doGet(String searchKey) {
-    return storage.get( searchKey);
+    return storage.get(searchKey);
   }
 
   @Override
