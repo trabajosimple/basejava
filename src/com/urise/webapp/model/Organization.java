@@ -1,15 +1,16 @@
 package com.urise.webapp.model;
 
-import static com.urise.webapp.util.DateUtil.NOW;
-import static com.urise.webapp.util.DateUtil.of;
-
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization {
+import static com.urise.webapp.util.DateUtil.NOW;
+import static com.urise.webapp.util.DateUtil.of;
+
+public class Organization implements Serializable {
   private final Link homePage;
 
   private List<Position> positions = new ArrayList<>();
@@ -67,7 +68,7 @@ public class Organization {
     return "Organization(" + homePage + "," + positions + ')';
   }
 
-  public static class Position {
+  public static class Position implements Serializable {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String title;
