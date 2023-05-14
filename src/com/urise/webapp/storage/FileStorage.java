@@ -5,21 +5,23 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.serializer.StreamSerializer;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileStorage extends AbstractStorage<File> {
     private final File dir;
-    private StreamSerializer streamSerializer;
+    private final StreamSerializer streamSerializer;
 
     protected FileStorage(String path, StreamSerializer streamSerializer) {
         Objects.requireNonNull(path, "Directory must not be null");
         dir = new File(path);
-        if(!dir.exists() || dir.isFile()){
-            if(!dir.mkdir()){
+        if (!dir.exists() || dir.isFile()) {
+            if (!dir.mkdir()) {
                 throw new IllegalArgumentException(path + " cannot create this directory");
-            };
+            }
         }
         if (!dir.canRead() || !dir.canWrite()) {
             throw new IllegalArgumentException(path + " is not readable/writable");
@@ -29,21 +31,12 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = dir.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
-        }
+        getFilesList().forEach(this::doDelete);
     }
 
     @Override
     public int size() {
-        String[] list = dir.list();
-        if (list == null) {
-            throw new StorageException("Directory read error", null);
-        }
-        return list.length;
+        return (int) getFilesList().count();
     }
 
     @Override
@@ -68,11 +61,7 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(File file, Resume resume) {
         try {
-            if (!file.createNewFile()) {
-                throw new StorageException("Couldn't create file: file " + file.getAbsolutePath() +
-                        " already exists", resume.getUuid());
-
-            }
+            file.createNewFile();
         } catch (IOException e) {
             throw new StorageException("Couldn't create file " + file.getAbsolutePath(), resume.getUuid());
         }
@@ -97,14 +86,12 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
+
+        return getFilesList().map(this::doGet).collect(Collectors.toList());
+    }
+
+    private Stream<File> getFilesList() {
         File[] files = dir.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory read error", null);
-        }
-        List<Resume> list = new ArrayList<>(files.length);
-        for (File file : files) {
-            list.add(doGet(file));
-        }
-        return list;
+        return files == null ? Stream.empty() : Arrays.stream(files);
     }
 }

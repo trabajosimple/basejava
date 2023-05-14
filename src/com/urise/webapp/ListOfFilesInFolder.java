@@ -7,11 +7,6 @@ public class ListOfFilesInFolder {
     private final String fullFilePath;
     private final File dir;
 
-    public static void main(String[] args) throws IOException {
-        ListOfFilesInFolder files = new ListOfFilesInFolder(null);
-        files.printFilesInDirectoryDeeply();
-    }
-
     ListOfFilesInFolder(String filePath) throws IOException {
         dir = new File(filePath == null ? "." : filePath);
         this.fullFilePath = dir.getCanonicalPath();
@@ -22,6 +17,11 @@ public class ListOfFilesInFolder {
 
     ListOfFilesInFolder() throws IOException {
         this(null);
+    }
+
+    public static void main(String[] args) throws IOException {
+        ListOfFilesInFolder files = new ListOfFilesInFolder(null);
+        files.printFilesInDirectoryDeeply();
     }
 
     private void printFilesInDirectoryDeeply() {

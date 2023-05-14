@@ -23,12 +23,12 @@ public class PathStorage extends AbstractStorage<Path> {
     protected PathStorage(String path, StreamSerializer streamSerializer) {
         Objects.requireNonNull(path, "Directory must not be null");
         dir = Paths.get(path);
-        if(!Files.exists(dir) || !Files.isDirectory(dir)){
+        if (!Files.exists(dir) || !Files.isDirectory(dir)) {
             try {
                 Files.createDirectory(dir);
-            } catch (IOException e){
+            } catch (IOException e) {
                 throw new IllegalArgumentException(path + " cannot create this directory");
-            };
+            }
         }
 
         if (!Files.isReadable(dir) || !Files.isWritable(dir)) {
@@ -107,7 +107,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             return Files.list(dir);
         } catch (IOException e) {
-            throw new StorageException("dir read error", getFileName(dir));
+            throw new StorageException("Dir read error", getFileName(dir));
         }
     }
 }
